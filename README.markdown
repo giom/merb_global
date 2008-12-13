@@ -1,6 +1,8 @@
 MerbGlobal README
 =================
 
+The cache branch has some merb-cache integration (allows caching according to the locale, see the doc there)
+
 A plugin for the Merb framework providing Localization (L10n) and 
 Internationalization (i18n) support.
  
