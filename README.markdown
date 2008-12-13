@@ -154,6 +154,27 @@ No configuration will look at:
 
     #{Merb.root}/app/locale/#{language}/LC_MESSAGES/merbapp.mo
     #{Merb.root}/app/locale/#{language}/merbapp.mo
+    
+    
+Integration with merb-cache
+---------------------------
+
+There is an additional strategy store available for merb-cache Merb::Global::Cache::LocaleStore that stores the locale together with the key.
+
+Example setting it up:
+<code>
+  Merb::Cache.setup do
+    register(:page_file_store, Merb::Cache::FileStore, :dir => Merb.root / 'public' / 'page_cache')
+    register(:page_locale_store, Merb::Global::Cache::LocaleStore[`:page_file_store`])
+    register(:page_store, Merb::Cache[:page_locale_store])
+  end
+</code>
+
+The main page will be cached in `public/page_cache/en/index.html` when the locale is 'en' and in `public/page_cache/ja/index.html` for the japanese translation.
+
+
+Additionally to that there is a `global_eager_cache` that eager_caches all different locales (instead of only updating the cache for one language and letting the other locales be stale.)
+
 
 Licensing and Copyright
 -----------------------
